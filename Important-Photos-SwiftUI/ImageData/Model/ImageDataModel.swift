@@ -58,4 +58,11 @@ struct ImageNote : Codable, Hashable, Identifiable {
             imageNote[index!].description = description
         }
     }
+    
+    func clearUserData() {
+        UserDefaults.standard.removeObject(forKey: IMAGES_KEY)
+        UserDefaults.resetStandardUserDefaults()
+        
+        imageNote = []
+    }
 }
