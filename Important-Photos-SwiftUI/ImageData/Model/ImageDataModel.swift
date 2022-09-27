@@ -33,4 +33,12 @@ struct ImageNote : Codable, Hashable, Identifiable {
         }
         imageNote = []
     }
+    
+    func addNote(image: UIImage, title: String, description: String) {
+        if let pngRepresentation = image.pngData() {
+            let tempNote = ImageNote(image: pngRepresentation, title: title, description: description)
+            imageNote.insert(tempNote, at: 0)
+            print("Added note!")
+        }
+    }
 }
