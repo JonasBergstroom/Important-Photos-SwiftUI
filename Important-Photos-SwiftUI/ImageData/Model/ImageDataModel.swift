@@ -49,4 +49,13 @@ struct ImageNote : Codable, Hashable, Identifiable {
             UserDefaults.standard.set(encodedNotes, forKey: IMAGES_KEY)
         }
     }
+    
+    func editNote(id: UUID, title: String, description: String) {
+        if let note = imageNote.first(where: {$0.id == id}) {
+            let index = imageNote.firstIndex(of: note)
+            
+            imageNote[index!].title = title
+            imageNote[index!].description = description
+        }
+    }
 }
