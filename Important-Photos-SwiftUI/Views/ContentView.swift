@@ -9,11 +9,12 @@ import SwiftUI
 
 struct ContentView: View {
     @State var showImagePicker: Bool = false
+    @StateObject var imageData = ImageData()
     
     var body: some View {
         NavigationView {
             VStack {
-                if true {
+                if imageData.imageNote.isEmpty {
                     Text("Add a photo from your library")
                         .font(.callout)
                         .fontWeight(.thin)
@@ -28,7 +29,7 @@ struct ContentView: View {
             .sheet(isPresented: $showImagePicker) {
                 ImagePicker(sourceType: .photoLibrary) {
                     image in
-                    print("\(image.scale)")
+                    imageData.addNote(image: image, title: "Edit note", description: "")
                 }
             }
             .toolbar{
@@ -42,7 +43,7 @@ struct ContentView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         withAnimation {
-                            
+                            imageData.clearUserData()
                         }
                     } label: {
                         Label("Delete", systemImage: "folder.badge.minus")
@@ -51,6 +52,7 @@ struct ContentView: View {
                 }
             }
         }
+        .environmentObject(imageData)
     }
 }
 
