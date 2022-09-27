@@ -18,7 +18,7 @@ struct ContentView: View {
                         .font(.callout)
                         .fontWeight(.thin)
                         .italic()
-                        .foregroundColor(.red)
+                        .foregroundColor(.blue)
         
                 } else {
                     HomeView()
@@ -37,6 +37,16 @@ struct ContentView: View {
                         showImagePicker.toggle()
                     } label: {
                         Label("Image", systemImage: "photo.on.rectangle.angled")
+                    }
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        withAnimation {
+                            
+                        }
+                    } label: {
+                        Label("Delete", systemImage: "folder.badge.minus")
+                            .tint(.red)
                     }
                 }
             }
