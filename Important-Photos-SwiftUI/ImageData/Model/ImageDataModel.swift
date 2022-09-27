@@ -20,6 +20,7 @@ struct ImageNote : Codable, Hashable, Identifiable {
     var imageNote: [ImageNote] {
         didSet {
             objectWillChange.send()
+            saveData()
         }
     }
     
@@ -39,6 +40,13 @@ struct ImageNote : Codable, Hashable, Identifiable {
             let tempNote = ImageNote(image: pngRepresentation, title: title, description: description)
             imageNote.insert(tempNote, at: 0)
             print("Added note!")
+            saveData()
+        }
+    }
+    
+    private func saveData() {
+        if let encodedNotes = try? JSONEncoder().encode(imageNote) {
+            UserDefaults.standard.set(encodedNotes, forKey: IMAGES_KEY)
         }
     }
 }
