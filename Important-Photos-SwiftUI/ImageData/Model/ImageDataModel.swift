@@ -6,3 +6,31 @@
 //
 
 import Foundation
+import SwiftUI
+
+struct ImageNote : Codable, Hashable, Identifiable {
+    var id = UUID()
+    var image: Data
+    var title: String
+    var description: String
+}
+
+@MainActor class ImageData : ObservableObject {
+    private let IMAGES_KEY = "KeyForImages"
+    var imageNote: [ImageNote] {
+        didSet {
+            objectWillChange.send()
+        }
+    }
+    
+    init() {
+        if let data = UserDefaults.standard.data(forKey: IMAGES_KEY) {
+            if let decodedNotes = try? JSONDecoder().decode([ImageNote].self, from: data) {
+                imageNote = decodedNotes
+                print("The note data retreived successfully!")
+                return
+            }
+        }
+        imageNote = []
+    }
+}
