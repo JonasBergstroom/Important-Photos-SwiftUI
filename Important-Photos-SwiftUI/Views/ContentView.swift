@@ -8,9 +8,39 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var showImagePicker: Bool = false
+    
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        NavigationView {
+            VStack {
+                if true {
+                    Text("Add a photo from your library")
+                        .font(.callout)
+                        .fontWeight(.thin)
+                        .italic()
+                        .foregroundColor(.red)
+        
+                } else {
+                    HomeView()
+                }
+            }
+            .navigationTitle("Photos with notes")
+            .sheet(isPresented: $showImagePicker) {
+                ImagePicker(sourceType: .photoLibrary) {
+                    image in
+                    print("\(image.scale)")
+                }
+            }
+            .toolbar{
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        showImagePicker.toggle()
+                    } label: {
+                        Label("Image", systemImage: "photo.on.rectangle.angled")
+                    }
+                }
+            }
+        }
     }
 }
 
