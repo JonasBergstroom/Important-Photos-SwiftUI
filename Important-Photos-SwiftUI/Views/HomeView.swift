@@ -25,6 +25,10 @@ struct HomeView: View {
                     }
                 }
             }
+            .onDelete(perform:  { indexSet in
+                imageData.imageNote.remove(atOffsets: indexSet)
+                
+            })
         }
     }
 }
