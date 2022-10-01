@@ -20,7 +20,8 @@ struct NoteView: View {
                     Spacer()
                     Image(uiImage: UIImage(data: note.image)!)
                         .resizable()
-                        .frame(width: 300, height: 300, alignment: .center)
+                        .aspectRatio(contentMode: .fit)
+
                     Spacer()
                 }
                 TextField("Edit note", text: $note.title)
